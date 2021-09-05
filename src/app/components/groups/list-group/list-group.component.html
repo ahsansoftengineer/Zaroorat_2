@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header pb-2">
+      <h5>Groups <span class="pull-right"><a routerLink="/group/create-group" >Create Group</a> </span> </h5>
+    </div>
+    <div class="card-body vendor-table pt-0">
+      <div id="batchDelete" class="custom-datatable vendor-list">
+        <div class="table-responsive ">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">Name</th>       
+              <th scope="col">Status</th>       
+              <th scope="col">Actions</th>       
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let group of groups">
+              <td><a [routerLink]="[ '/group/view-groups', group.id ]">{{group.name}} </a></td>
+              <td>{{group.isActive && !!group.isActive ? 'Active' : 'Not Active' }}</td>
+              <td><ui-switch [checked]=group.isActive  (change)="onChange($event,group)" switchColor="#fcfcfc" >
+                <!-- <i class="fa fa-spinner fa-pulse" *ngIf="isLoading"></i> -->
+              </ui-switch></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

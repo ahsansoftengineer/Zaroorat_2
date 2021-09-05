@@ -1,0 +1,63 @@
+<div class="row" *ngIf="user">
+  <div class="col-md-3" style="position: fixed; bottom: 0px; right: 20px; ">
+    <div class=" card card-user">
+      <!-- Current User -->
+      <div class="card-header pb-2">
+        <div class="row">
+          <div class="col-3">
+            <img class="rounded-circle" style="height:55px" [src]="user.userImage" alt="Self Image">
+          </div>
+          <div class="col-9 p-0 m-0 pr-2" style="margin-left:-20px;">
+            <h4 class="card-title m-0 p-0" style>
+              {{user.name}}
+              <div style="cursor: pointer;" class="float-right ">
+                <h4 class="float:right;">
+                  <app-feather-icons 
+                  (click)="displayChat(chatvisible)" style="color: rgb(11, 155, 11);" class="shopping-color" 
+                  icon="message-square">
+                  </app-feather-icons>
+                  &nbsp;
+                  <app-feather-icons 
+                  (click)="minimize = !minimize; " style="color: rgb(15, 105, 179);" class="shopping-color"
+                  [icon]="minimize === true ? 'maximize-2' : 'minimize-2'">
+                  </app-feather-icons>
+                  <span ></span>
+                </h4>
+              </div>
+            </h4>
+            <h5 class="card-title float-left m-0 p-0"> {{user.businessName}} </h5>
+          </div>
+
+        </div>
+      </div>
+      <!-- My Contects -->
+      <div class="card-body  border-bottom border-top" style="height:400px;"
+        [ngClass]="{'d-none': minimize }" *ngIf="myContactUser">
+        <div *ngFor="let contact of myContactUser, let ev = even" (click)="letsChat(contact)" class="row mb-1 pt-2 pb-2"
+          [ngClass]="{'activeUser': contact.id === chatedUser?.id}"
+          [style.background-color]="ev ?  'rgba(128, 128, 128, 0.363)' : 'rgba(10, 186, 255, 0.459)'"
+          style="cursor: pointer;">
+          <div class="col-md-2">
+            <img [src]="contact.userImage" style="height: 55px; width:60px" class="rounded-circle">
+            <div class="user-state " [ngClass]="contact.online ? 'user-active' : 'user-disable'"></div>
+          </div>
+          <div class="col-md-10 pt-2 pl-0">
+            <h4 class="m-0">{{ contact.name }}</h4>
+            <p class="m-0"> {{ contact.businessName }}<span class="float-right"> {{ contact.online }} </span></p>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer" [ngClass]="{'d-none': minimize }">
+        <div class="form-group row">
+          <div class="input-group input-grp-p">
+            <input  [formControl]="searchControl" (keyup.enter)="filterContacts()" class="form-control">
+            <div class="input-group-append">
+              <button class="btn  btn-primary pl-1 pr-1"(click)="filterContacts()" type="button">
+                <i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

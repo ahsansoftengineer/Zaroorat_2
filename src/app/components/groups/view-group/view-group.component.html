@@ -1,0 +1,31 @@
+<div class="needs-validation user-add" novalidate="">
+    <div class="permission-block">
+      <div class="attribute-blocks">
+        <h5 class="f-w-600 mb-3"> </h5>
+        <div class="row">
+          <div class="col-4">
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Group Name" aria-label="Username" [(ngModel)]="name" aria-describedby="basic-addon1" disabled>
+            </div>
+            <!-- <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Group Name" aria-label="Username" aria-describedby="basic-addon1" formControlName="name">
+            </div> -->
+          </div>
+          </div>
+        </div>
+        <h4 class="mt-2 mb-2">Categories</h4>
+          <div class="row">
+          <div class="col-4 mb-3" *ngFor="let category of group" >
+            <div class="custom-control custom-checkbox mr-sm-2">
+              <!-- <input type="checkbox" [value]="cate.id" class="custom-control-input" [id]="cate.id" [checked]>
+              <label class="custom-control-label"  [attr.for]="cate.id">{{cate.name}}</label> -->
+              <ul>
+                <li>{{category.name}}</li>
+              </ul>  
+          </div>
+        </div>
+        </div>
+      </div>
+  
+  </div>
+

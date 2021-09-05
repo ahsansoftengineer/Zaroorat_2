@@ -1,0 +1,40 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <button class="btn btn-outline-primary mb-1 float-right" [routerLink]="['/category/add-category']">Add Category</button>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Category</th>
+                  <th scope="col">Parent Category</th>
+                  <th scope="col">Variation Type</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Meta Title</th>
+                  <th scope="col">Meta Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pc of productCategories" (click)="modified(pc.id)">
+                  <td>{{ pc.category}}</td>
+                  <td>{{ pc.pId }}</td>
+                  <td>{{ pc.variationTypeId }}</td>
+                  <td>{{ pc.description }}</td>
+                  <td>{{ pc.metaTitle }}</td>
+                  <td>{{ pc.metaDescription }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize">
+              </ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

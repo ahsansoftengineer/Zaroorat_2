@@ -1,0 +1,22 @@
+.user-state {
+  height: 15px;
+  width: 15px;
+  border-radius: 10px;
+  margin-top:-19px;
+  margin-right:25px;
+  right:2px;
+
+  position: absolute;
+}
+.user-active{
+  background-image: radial-gradient(rgba(0, 128, 0, 0.596), rgba(0, 128, 0, 0.671), white);
+}
+.user-disable{
+  background-image: radial-gradient(rgba(255, 1, 1, 0.664), rgba(248, 0, 0, 0.5), white);
+}
+.user-A{
+  border:2px solid orangered;
+  border-radius: 100%;
+  background-color: rgba(255, 103, 2, 0.52);
+}
+

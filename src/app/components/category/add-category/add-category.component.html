@@ -1,0 +1,96 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <form [formGroup]="form">
+        <div class="card tab2-card">
+          <div class="card-body tab2-card">
+            <ngb-tabset class="tab-coupon">
+              <ngb-tab title="Product Category">
+                <ng-template ngbTabContent>
+                  <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="form-group row">
+                      <label for="category" class="col-xl-3 col-md-4"><span>*</span>Name</label>
+                      <input class="form-control col-xl-8 col-md-7" formControlName="category"
+                        placeholder="Product Category" type="text" />
+                      <span *ngIf="validate('category')" class="text-danger offset-xl-3 offset-md-4">
+                        <b>Product Category </b> is Required
+                      </span>
+                    </div>
+                    
+                    <!--Description-->
+                    <div class="form-group row">
+                      <label for="description" class=" col-xl-3 col-md-4">Description</label>
+                      <textarea formControlName="description" id="description" rows="2"
+                        class="form-control col-xl-8 col-md-7"></textarea>
+                      <span *ngIf="validate('description')" class="text-danger">
+                        <b>Description</b> is Required
+                      </span>
+                    </div>
+                    <!-- Set Variation Type -->
+                    <div class="form-group row">
+                      <label for="cat1" class="col-xl-3 col-md-4"><span>*</span>Variation Type</label>
+                      <ng-select [items]="productCategoryVariationTypes" placeholder="Select item" appendTo="body" multiple="true" 
+                       class="col-xl-8 col-md-7 pl-0 pr-0 " bindLabel="variationType" bindValue="id" 
+                       formControlName="variationTypeId">
+                      </ng-select>
+                    </div>
+                    <!-- Parent Categories -->
+                    <div class="form-group row">
+                      <label for="cat1" class="col-xl-3 col-md-4"><span>*</span>Parent Category</label>
+                      <ng-select [items]="productCategories" class="col-xl-8 col-md-7 pl-0 pr-0 " bindLabel="category"
+                        bindValue="id" formControlName="pId">
+                      </ng-select>
+                    </div>
+                  
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="SEO / Meta Data">
+                <ng-template ngbTabContent>
+                  <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="form-group row">
+                      <label for="metaTitle" class="col-xl-3 col-md-4"><span>*</span> Meta Title</label>
+                      <input formControlName="metaTitle" class="form-control col-xl-8 col-md-7" required id="metaTitle"
+                        type="text" required />
+                      <span *ngIf="validate('metaTitle')" class="text-danger offset-xl-3 offset-md-4">
+                        <b>Meta Title </b> is Required
+                      </span>
+                    </div>
+                    <div class="form-group row">
+                      <label for="metaDescription" class="col-xl-3 col-md-4"><span>*</span> Meta Description</label>
+                      <textarea formControlName="metaDescription" rows="4" id="metaDescription" name="metaDescription"
+                        class="form-control col-xl-8 col-md-7"></textarea>
+                      <span *ngIf="validate('metaDescription')" class="text-danger offset-xl-3 offset-md-4">
+                        <b>Meta Description </b> is Required
+                      </span>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+          <div class="card-footer">
+            <span [ngClass]="isError ? 'text-danger': 'text-success'">
+              <b> Message </b> {{ this.errMessage }}
+            </span>
+            <div class="pull-right mr-5">
+              <button type="button" class="btn btn-outline-primary"
+                (click)="modifyProductCategory(editMode ? 'Update' : 'Add' )">
+                {{editMode ? 'Update' : 'Add' }}
+              </button>
+              &nbsp;
+              <button type="button" class="btn btn-primary mx-3" [routerLink]="['/products/physical/category-list']"  >
+                Back
+              </button>
+              <!-- <button type="button" *ngIf="editMode" class="btn btn-outline-warning"
+                (click)="modifyProductCategory('Delete')">
+                Delete
+              </button> -->
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

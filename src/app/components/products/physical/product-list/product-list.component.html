@@ -1,0 +1,101 @@
+<div class="container-fluid">
+  <div class="text-right mb-1" style="cursor: pointer;">
+    <app-feather-icons class="shopping-color mr-1" [icon]="'grid'" (click)="changeView(true)">
+    </app-feather-icons>
+    <app-feather-icons class="shopping-color " [icon]="'list'" (click)="changeView(false)">
+    </app-feather-icons>
+  
+  </div>
+  <!-- <div class="text-left">
+    <button type="button" class="btn btn-outline-primary  ml-4"
+    [routerLink]="[ '/add-product' ]"> Add Product</button>
+  </div> -->
+  <div class="row products-admin ratio_asos" *ngIf="grid">
+    <div class="col-xl-3 col-sm-6" *ngFor="let product of products">
+
+      <div class="card">
+
+        <div class="card-body product-box">
+          <div class="img-wrapper">
+            <!-- Product Interface Need Modification -->
+            <!-- <div class="lable-block">
+              <span class="lable3" *ngIf="true">new</span> 
+              <span class="lable4" *ngIf="true">on sale</span>
+            </div> -->
+            <div class="front">
+              <a href="javascript:void(0)"><img [src]="'assets/images/electronics/product/1.jpg'" class="img-fluid blur-up lazyload bg-img"
+                  alt=""></a>
+              <div class="product-hover">
+                <ul>
+                  <li>
+                    <button class="btn" type="button" [routerLink]="['/products/physical/product-detail/',1]"  ><i class="fa fa-eye"></i></button>
+                  </li>
+                  <li>
+                    <!-- <button class="btn" type="button" data-original-title="" title=""><i
+                        class="icon-pencil-alt"></i></button> -->
+                    <button class="btn" type="button" (click)="modified(product.id)" data-original-title="" title="">
+                      <i class="icon-pencil-alt"></i>
+                    </button>
+                  </li>
+                  <li>
+                    <button class="btn" type="button" (click)="modified(product.id)" data-toggle="modal" data-target="#exampleModalCenter"
+                      data-original-title="" title="">
+                      <i class="icon-trash"></i>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="product-detail">
+            <div class="rating">
+              <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                class="fa fa-star"></i> <i class="fa fa-star"></i>
+            </div>
+            <a href="javascript:void(0)">
+              <h6>{{product.product_title}}</h6>
+            </a>
+            <h4>{{500}} <del>{{700}}</del></h4>
+            <ul class="color-variant">
+              <li class="bg-light0"></li>
+              <li class="bg-light1"></li>
+              <li class="bg-light2"></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!grid">
+    <app-feather-icons [icon]="grid"></app-feather-icons>
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <button class="btn btn-outline-primary mb-1 float-right"  [routerLink]="['//products/physical/add-product']"  >Add Product</button>
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Image</th>
+                  <th scope="col">Product Title</th>
+                  <th scope="col">Category</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of products" (click)="modified(product.id)">
+                  <td> <img [src]="product.images[0].image" style="height: 40px; width: 40px;" [attr.alt]="product.images[0].image" ></td>
+                  <td>{{ product.productTitle }}</td>
+                  <td>{{ product.productCategoryId }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"></ngb-pagination>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

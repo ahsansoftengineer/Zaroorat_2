@@ -1,0 +1,93 @@
+<div class="row" [ngClass]="{'d-none': chatBotHide }">
+  <div style="position: fixed; bottom: 0px; right:450px" [ngClass]="resize?'col-4':'col-3'">
+    <div class=" card card-user">
+      <div class="card-header pb-2">
+        <div class="row">
+          <div class="col-2">
+            <img class="rounded-circle" style="height:55px"
+              [src]="chatedUser ? chatedUser.userImage : 'upload.png'" alt="Targated User">
+            <div class="user-state "
+              [ngClass]="chatedUser ? (chatedUser.online ? 'user-active' : 'user-disable') : 'user-disable'">
+            </div>
+          </div>
+          <div class="col-10 p-0 m-0 pr-2" style="margin-left:-20px;">
+            <h4 class="card-title m-0 p-0">{{chatedUser ? chatedUser.name : 'User Name'}}
+              <div style="cursor: pointer;" class="float-right ">
+                <h5 class="float:right;">
+                  <app-feather-icons class="shopping-color" style="color: red" icon="trash-2"></app-feather-icons>
+                  &nbsp;
+                  <app-feather-icons (click)="resize = !resize;" style="color: rgb(11, 155, 11);" class="shopping-color"
+                    [icon]="resize ? 'minimize': 'maximize'"></app-feather-icons>
+                  &nbsp;
+                  <app-feather-icons (click)="minimize = !minimize;" style="color:rgb(15, 105, 179);" class="shopping-color"
+                    [icon]="minimize ? 'minimize-2': 'maximize-2'"></app-feather-icons>
+                  &nbsp;
+                  <app-feather-icons (click)="openCloseChat()" style="color: red" class="shopping-color" icon="x-square">
+                  </app-feather-icons>
+                </h5>
+              </div>
+            </h4>
+            <h5 class="card-title m-0 p-0">{{chatedUser ? chatedUser.businessName : 'Business Name'}}</h5>
+          </div>
+        </div>
+      </div>
+      <!-- show Hide Toggle  -->
+      <div class="card-body  border-bottom border-top" style="overflow-y: auto;"
+        [style.height]="resize ? '570px': '450px' " [ngClass]="{'d-none': minimize }">
+        <div class="row mb-1">
+          <div class="col-12" *ngIf="myChats">
+            <span *ngFor="let chat of myChats" [ngClass]="chat.userA === user.id ? 'float-left': 'float-right'">
+              <div class="alert alert-primary p-2 float-left" style="min-height: 60px; clear:both"
+                [ngClass]="chat.userA === user.id ? 'alert-primary' : 'alert-info'" role="alert">
+                <table style="min-width: 350px;">
+                  <tr>
+                    <td *ngIf="chat.userA === user.id " style="width: 50px;">
+                      <img class="rounded-circle m-0 mr-3" style="height:40px; width:40px" alt="Targated User"
+                        [src]="chat.userA === user.id ? user.userImage : chatedUser.userImage ">
+                    </td>
+                    <td>
+                      <h4 class="alert-heading m-0 p-0"> {{chat.userA === user.id ? user.name : chatedUser.name }}
+                      </h4>
+                      <span> {{chat.message}}</span>
+                    </td>
+                    <td *ngIf="chat.userA !== user.id " style="width: 50px;">
+                      <img class="rounded-circle m-0 float-right" style="height:40px; width:40px" alt="Targated User"
+                        [src]="chat.userA === user.id ? user.userImage : chatedUser.userImage ">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="min-width:200px;">
+                      <span *ngIf="chat.userA === user.id " (click)="deleteChat(chat.id)"
+                        class="text-info tim-icons icon-simple-remove float-right" style="cursor:pointer"></span>
+                      <span *ngIf="chat.userA === user.id " class="float-right pr-3">
+                        {{computeDuration(chat.date)}}</span>
+                      <span *ngIf="chat.userA !== user.id " (click)="deleteChat(chat.id)"
+                        class="tim-icons icon-simple-remove text-danger" style="cursor:pointer"></span>
+                      <span *ngIf="chat.userA !== user.id " class="pl-3"> {{computeDuration(chat.date)}}</span>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <br>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer" [ngClass]="{'d-none': minimize }">
+        <div class="form-group row">
+          <div class="input-group input-grp-p">
+            <div class="input-group-prepend">
+              <button class="btn btn-btn-info pl-1 pr-1" type="button">
+                <i class="fa fa-paperclip"></i></button>
+            </div>
+            <input  [formControl]="chatMessage" placeholder="your Message" (keyup.enter)="sendChat()" class="form-control">
+            <div class="input-group-append">
+              <button class="btn btn-primary pl-1 pr-1" (click)="sendChat()" type="button">
+                <i class="fa fa-paper-plane"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

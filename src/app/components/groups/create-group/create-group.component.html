@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card tab2-card">
+        <div class="card-body">
+          <form [formGroup]="groupForm" class="needs-validation user-add" novalidate="">
+            <div class="row">
+              <div class="col-4">
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="Group Name" aria-label="Username"
+                    aria-describedby="basic-addon1" formControlName="name">
+                </div>
+                <!-- <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Group Name" aria-label="Username" aria-describedby="basic-addon1" formControlName="name">
+          </div> -->
+              </div>
+            </div>
+              <div class="row">
+                <div class="col-3 pt-1 pb-1" *ngFor="let cate of majorCategories" >
+                  <div class="custom-control custom-checkbox mr-sm-2">
+                    <input type="checkbox" [value]="cate.id" class="custom-control-input" [id]="cate.id"
+                    (change)="checkValue($event,cate.id)">
+                    <label class="custom-control-label"  [attr.for]="cate.id">{{cate.category}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="pull-right mt-3">
+                <button type="button" class="btn btn-outline-primary" [disabled]='groupForm.invalid'
+                  (click)="saveGroup()">
+                  Create Group
+                </button>
+                <button type="button" class="btn btn-primary mx-3" [routerLink]="['/group/groups']">
+                  Back
+                </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

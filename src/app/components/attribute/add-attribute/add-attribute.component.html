@@ -1,0 +1,52 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <form [formGroup]="form">
+        <div class="card tab2-card">
+          <div class="card-body tab2-card">
+            <div class="form-group row">
+              <label for="category_Name" class="col-xl-3 col-md-4"><span>*</span>Category Name</label>
+              <input class="form-control col-xl-8 col-md-7" formControlName="category_Name" placeholder="Category Name"
+                type="text" />
+              <span *ngIf="validate('category_Name')" class="text-danger offset-xl-3 offset-md-4">
+                <b>Category Name </b> is Required
+              </span>
+            </div>
+            <!--Unit-->
+            <div class="form-group row">
+              <label for="unit" class=" col-xl-3 col-md-4">Unit</label>
+              <textarea formControlName="unit" id="unit" rows="2" class="form-control col-xl-8 col-md-7"></textarea>
+              <span *ngIf="validate('unit')" class="text-danger">
+                <b>Unit</b> is Required
+              </span>
+            </div>
+            <!--Value-->
+            <div class="form-group row">
+              <label for="value" class=" col-xl-3 col-md-4">Value</label>
+              <textarea formControlName="value" id="value" rows="2" class="form-control col-xl-8 col-md-7"></textarea>
+              <span *ngIf="validate('value')" class="text-danger">
+                <b>Value</b> is Required
+              </span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span [ngClass]="isError ? 'text-danger': 'text-success'">
+              <b> Message </b> {{ this.errMessage }}
+            </span>
+            <div class="pull-right mr-5">
+              <button type="button" class="btn btn-outline-primary"
+                (click)="modify(editMode ? 'Update' : 'Add' )">
+                {{editMode ? 'Update' : 'Add' }}
+              </button>
+              &nbsp;
+              <button type="button" class="btn btn-primary mx-3" [routerLink]="['/attribute/attribute-list']">
+                Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

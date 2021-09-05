@@ -1,0 +1,275 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <!-- (ngSubmit)="onSubmit()" -->
+      <form [formGroup]="form" class="needs-validation user-add" novalida>
+        <div class="card tab2-card">
+          <div class="card-body tab2-card">
+            <ngb-tabset class="tab-coupon">
+              <ngb-tab title="General Info">
+                <ng-template ngbTabContent>
+                  <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="row product-adding">
+                      <div class="col-xl-5">
+                        <div class="add-product">
+                          <div class="row">
+                            <div class="col-xl-9 xl-50 col-sm-6 col-9" formArrayName="images">
+                              <div [formGroupName]="5"> 
+                                <input type="text" #largeImageControl formControlName="image" style="display: none;">
+                                <img #imgLargeView src="assets/images/pro3/1.jpg" alt="" class="img-fluid image_zoom_1">
+                                <input class="upload-large" type="file"
+                                  (change)="readUrl($event, imgLargeView)">
+                              </div>
+                            </div>
+                            <div class="col-xl-3 xl-50 col-sm-6 col-3">
+                              <ul class="file-upload-product" formArrayName="images">
+                                <div *ngFor="let image of productImages; let i = index">
+                                  <li *ngIf="i !== 5">
+                                    <div class="box-input-file" [formGroupName]="i">
+                                      <input type="text" #imageControl formControlName="image" style="display: none;">
+                                      <img #imgSmallView class="imgUpload" src="assets/images/pro3/1.jpg">
+                                      <input class="upload" type="file"
+                                        (change)="readUrl($event, imgSmallView)">
+                                    </div>
+                                  </li>
+                                </div>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-7">
+                        <div class="add-product-form">
+                          <div class="form-group row">
+                            <label for="productTitle" class="col-xl-3 col-sm-4 mb-0">Title</label>
+                            <input class="form-control col-xl-9 col-sm-8" id="productTitle" type="text"
+                              formControlName="productTitle">
+                            <span *ngIf="validate('productTitle')" class="text-danger offset-xl-3 offset-md-4">
+                              <b>Product Title </b> is Required </span>
+                          </div>
+                          <!-- Parent Categories -->
+                          <div class="form-group row">
+                            <label for="productCategoryId" class="col-xl-3 col-md-4 mb-0">Category</label>
+                            <ng-select [items]="productCategories" (change)="categoryChange($event)"
+                              class="col-xl-9 col-sm-8 pl-0 pr-0 " bindLabel="category" bindValue="id"
+                              formControlName="productCategoryId">
+                            </ng-select>
+                            <span *ngIf="validate('productCategoryId')" class="text-danger offset-xl-3 offset-md-4">
+                              <b>Product Category</b> is Required </span>
+                          </div>
+                          <!-- Radio Variation Variation Selection -->
+                          <div class="form-group row">
+                            <label for="productCategoryId" class="col-xl-3 col-md-4 mb-0">Variation Type</label>
+                            <div class="col-xl-8 col-sm-7">
+                              <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                                <label *ngFor="let variations of currentproductCategoryVariationTypes" class="d-block"
+                                  [attr.for]="variations.id">
+                                  <input name="selectedVariations" (change)="variationChange(variations)"
+                                    class="radio_animated" [id]="variations.id" type="radio"
+                                    [value]="variations.variations">
+                                  {{ variations.variationType }}
+                                </label>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- Variations -->
+                          <div class="form-group row mb-0">
+                            <label class="col-xl-3 col-md-4 mb-0" style="cursor: pointer">Variations</label>
+                          </div>
+                          <div class="form-group row mt-0">
+                            <div class="col-sm-10 offset-sm-1 ">
+                              <div formArrayName="productVariations">
+                                <div *ngFor="let ProductVariation of productVariations; let i = index">
+                                  <div [formGroupName]="i">
+                                    <div class="form-group row">
+                                      <div class="col-12">
+                                        <a>
+                                          <app-feather-icons *ngIf="productVariations.length > 1"
+                                            class="shopping-color del-icon float-right" icon="trash-2"
+                                            (click)="removeProductVariation(i)">
+                                          </app-feather-icons>
+                                        </a>
+                                      </div>
+                                    </div>
+                                    <div class="form-group row">
+                                      <label [attr.for]="'size'+i" class="col-xl-3 col-sm-4 mb-0">Select
+                                        Size</label>
+                                      <select formControlName="size" class="form-control digits col-xl-9 col-sm-8"
+                                        [id]="'size'+i">
+                                        <option value="" selected disabled>Select Size </option>
+                                        <option [value]="variationType" *ngFor="let variationType of currentSizes">
+                                          {{ variationType }}</option>
+                                      </select>
+                                      <span
+                                        *ngIf="ProductVariation.get('size').invalid && ProductVariation.get('size').touched"
+                                        class="text-danger offset-xl-3 offset-md-4 pl-0">
+                                        <b>Size</b> is Required </span>
+                                    </div>
+                                    <div class="form-group row">
+                                      <label [attr.for]="'price'+i" class="col-xl-3 col-sm-4 mb-0">Price</label>
+                                      <input [id]="'price'+i" class="form-control col-xl-9 col-sm-8"
+                                        formControlName="price" type="number">
+                                      <span
+                                        *ngIf="ProductVariation.get('price').invalid && ProductVariation.get('price').touched"
+                                        class="text-danger offset-xl-3 offset-md-4">
+                                        <b>Price </b> is Required
+                                      </span>
+                                    </div>
+                                    <!-- <div class="form-group row">
+                                      <label [attr.for]="'quantity'+i" class="col-xl-3 col-sm-4 mb-0">Quantity</label>
+                                      <input [id]="'quantity'+i" class="form-control col-xl-9 col-sm-8"
+                                        formControlName="quantity" type="number">
+                                      <span
+                                        *ngIf="ProductVariation.get('quantity').invalid && ProductVariation.get('quantity').touched"
+                                        class="text-danger offset-xl-3 offset-md-4">
+                                        <b>Quantity</b> is Required
+                                      </span>
+                                    </div> -->
+                                    <!-- Color Form Array -->
+                                    <div class="form-group row" formArrayName="colors">
+                                      <label class="col-xl-3 col-sm-4 mb-0">Colors</label>
+                                      <div class="col-xl-9 col-sm-8 " [ngClass]="{'offset-xl-3 offset-sm-4': ii > 0}"
+                                        *ngFor="let color of ProductVariation.get('colors').controls; let ii = index; ; let first = first; let last = last">
+                                        <div [formGroupName]="ii" class="form-group row">
+                                          <div class="input-group col-12 input-grp-p">
+                                            <ng-select formControlName="color" class="w-50" [items]="colors"
+                                              [multiple]="false" [closeOnSelect]="true" [searchable]="false"
+                                              bindLabel="name" bindValue="hex" placeholder="Select Color">
+                                              <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                                                <span class="ng-value-label"> <span
+                                                    style="  border-radius: 50%; display: inline-block; height: 15px; width: 15px;"
+                                                    [ngStyle]="{'background-color': item.hex}"></span>
+                                                  {{item.name}}</span>
+                                                <span class="ng-value-icon right" (click)="clear(item)"
+                                                  aria-hidden="true">×</span>
+                                              </ng-template>
+
+                                              <ng-template ng-option-tmp let-item="item">
+                                                <span
+                                                  style="  border-radius: 50%; display: inline-block; height: 15px; width: 15px;"
+                                                  [ngStyle]="{'background-color': item.hex}"></span>
+                                                {{item.name}}
+                                              </ng-template>
+                                            </ng-select>
+                                            <input id="quantity" class="form-control" placeholder="Quantity"
+                                              formControlName="quantity">
+                                            <div class="input-group-append">
+                                              <button class="input-group-text pt-0 pb-0 btn btn-outline-primary"
+                                                type="button" *ngIf="!last"
+                                                (click)="removeColor(ProductVariation)">Delete
+                                              </button>
+                                              <button class="input-group-text pt-0 pb-0 btn btn-outline-primary"
+                                                type="button" *ngIf="last" (click)="addColor(ProductVariation)">Add
+                                              </button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <hr *ngIf="i > 0">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group row d-flex justify-content-end">
+                            <div style="padding-right:	3.75rem">
+                              <!--  <app-feather-icons style="color:rgb(16, 158, 253)" class="shopping-color float-right"
+                                icon="file-plus" (click)="addProductVariation()">
+                              </app-feather-icons>  -->
+                              <button type="button" class="btn btn-outline-primary w-100"
+                                (click)="addProductVariation()"> Add Variation</button>
+                            </div>
+                            <div class="col-12">
+                              <hr>
+                            </div>
+                          </div>
+
+                          <!-- <div class="form-group row">
+                            <label class="col-12 mb-0" for="short-description">Short Description</label>
+                            <div class="col-12 pr-0">
+                              <textarea id="short-description" formControlName="shortDescription" rows="3"
+                                class="form-control"></textarea>
+                              <span *ngIf="form.get('shortDescription').invalid && form.get('shortDescription').touched"
+                                class="text-danger col-12 pl-0"> <b>Short
+                                  Description</b> is Required </span>
+                            </div>
+                          </div> -->
+                          <div class="form-group row">
+                            <label class="col-12 mb-0" for="long-description">Long Description</label>
+                            <div class="col-12 pr-0">
+                              <!-- <textarea id="long-description" formControlName="longDescription" rows="3"
+                                class="form-control"></textarea> -->
+                              <ck-editor name="editor1" skin="moono-lisa" language="en" [fullPage]="true"></ck-editor>
+                              <span *ngIf="form.get('longDescription').invalid && form.get('longDescription').touched"
+                                class="text-danger col-12 pl-0"> <b>Long Description</b>
+                                is Required </span>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="SEO / Meta Data">
+                <ng-template ngbTabContent>
+                  <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="form-group row">
+                      <label for="metaTitle" class="col-xl-3 col-md-4"><span>*</span> Meta
+                        Title</label>
+                      <input formControlName="metaTitle" class="form-control col-xl-9 col-md-7" required id="metaTitle"
+                        type="text">
+                      <span *ngIf="form.get('metaTitle').invalid && form.get('metaTitle').touched"
+                        class="text-danger offset-xl-3 offset-md-4">
+                        <b>Meta Title </b> is Required
+                      </span>
+                    </div>
+                    <div class="form-group row">
+                      <label for="metaDescription" class="col-xl-3 col-md-4"><span>*</span> Meta
+                        Description</label>
+                      <textarea formControlName="metaDescription" rows="4" id="metaDescription"
+                        class="form-control col-xl-9 col-md-7"></textarea>
+                      <span *ngIf="form.get('metaDescription').invalid && form.get('metaDescription').touched"
+                        class="text-danger offset-xl-3 offset-md-4">
+                        <b>Meta Description </b> is Required
+                      </span>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+          <div class="card-footer p-2">
+            <div class="form-group row mb-1">
+              <div class="col-12">
+                <span [ngClass]="isError ? 'text-danger': 'text-success'">
+                  <b> Message </b> {{this.errMessage}}
+                </span>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-12 mr-1">
+                <div class="pull-right">
+                  <button type="button" class="btn btn-outline-primary"
+                    (click)="modifyProduct(editMode ? 'Update' : 'Add' )">
+                    {{editMode ? 'Update' : 'Add' }}
+                  </button>
+                  &nbsp;
+                  <button type="button" *ngIf="editMode" class="btn btn-outline-warning"
+                    (click)="modifyProduct('Delete')">Delete</button>
+                  &nbsp;
+                  <button type="button" class="btn btn-primary mx-3" [routerLink]="['/products/physical/product-list']">
+                    Back
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

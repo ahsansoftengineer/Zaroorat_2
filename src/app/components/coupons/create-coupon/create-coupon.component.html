@@ -1,0 +1,183 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="card">
+    <form [formGroup]="form" class="needs-validation" novalidate="">
+      <div class="card-header">
+        <h5>Discount Coupon Details</h5>
+      </div>
+      <div class="card-body tab2-card">
+        <ngb-tabset class="tab-coupon">
+          <ngb-tab title="General">
+            <ng-template ngbTabContent>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-group row">
+                    <label for="title" class="col-xl-3 col-md-4"><span>*</span>Coupon Title</label>
+                    <input class="form-control col-md-7" formControlName="title" id="title" type="text" required="">
+                    <span *ngIf="validate('title')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Coupon
+                        Title </b>
+                      is Required </span>
+                  </div>
+                  <div class="form-group row">
+                    <label for="couponCode" class="col-xl-3 col-md-4"><span>*</span>Coupon Code</label>
+                    <input class="form-control col-md-7" formControlName="couponCode" id="couponCode" type="text">
+                    <span *ngIf="validate('couponCode')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Coupon Code </b> is Required </span>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-xl-3 col-md-4">Start Date</label>
+                    <div class="input-group col-md-7 input-grp-p">
+                      <input class="datepicker-here form-control digits" ngbDatepicker formControlName="startDate"
+                        #f="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="btn calendar" (click)="f.toggle()" type="button"><i
+                            class="fa fa-calendar"></i></button>
+                      </div>
+                    </div>
+                    <span *ngIf="validate('startDate')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0">
+                      <b>Start Date </b>
+                      is Required </span>
+                  </div> 
+                  <div class="form-group row">
+                    <label for="endDate" class="col-xl-3 col-md-4">End Date</label>
+                    <div class="input-group col-md-7 input-grp-p">
+                      <input id="endDate" class="datepicker-here form-control digits" ngbDatepicker
+                        formControlName="endDate" #c="ngbDatepicker">
+                      <div class="input-group-append">
+                        <button class="btn calendar" (click)="c.toggle()" type="button"><i
+                            class="fa fa-calendar"></i></button>
+                      </div>
+                    </div>
+                    <span *ngIf="validate('endDate')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>End
+                        Date </b>
+                      is Required </span>
+                  </div>
+                  <div class="form-group row">
+                    <label for="quantity" class="col-xl-3 col-md-4">Quantity</label>
+                    <input id="quantity" class="form-control col-md-7" formControlName="quantity" type="number">
+                    <span *ngIf="validate('quantity')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0">
+                      <b>Quantity </b>
+                      is Required </span>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-xl-3 col-md-4">Discount Type</label>
+                    <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                      <label class="d-block" for="percent">
+                        <input formControlName="discountType" class="radio_animated" id="percent" type="radio"
+                          value="percent">
+                        Percent
+                      </label>
+                      <label class="d-block" for="fixed">
+                        <input formControlName="discountType" class="radio_animated" id="fixed" type="radio"
+                          value="fixed">
+                        Fixed
+                      </label>
+                    </div>
+                    <span *ngIf="validate('discountType')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0">
+                      <b>Discount Type </b>
+                      is Required </span>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-xl-3 col-md-4">Free Shipping</label>
+                    <div class="checkbox checkbox-primary col-md-7">
+                      <input id="freeShipping" type="checkbox" formControlName="freeShipping">
+                      <label for="freeShipping">Allow Free Shipping</label>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-xl-3 col-md-4">Status</label>
+                    <div class="checkbox checkbox-primary col-md-7">
+                      <input id="status" formControlName="status" type="checkbox">
+                      <label for="status">Enable the Coupon</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Restriction">
+            <ng-template ngbTabContent>
+              <h4>Restriction</h4>
+              <div formGroupName="restriction">
+                <div class="form-group row">
+                  <label for="product" class="col-xl-3 col-md-4">Products</label>
+                  <input id="product" class="form-control col-md-7" formControlName="product" type="text">
+                  <span *ngIf="validate('restriction.product')"
+                    class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Product </b>
+                    is Required </span>
+                </div>
+                <div class="form-group row">
+                  <label class="col-xl-3 col-md-4">Category</label>
+                  <select class="custom-select col-md-7" formControlName="categoryId">
+                    <option value="">Product Category</option>
+                    <option value="1">Electronics</option>
+                    <option value="2">Clothes</option>
+                    <option value="2">Shoes</option>
+                    <option value="2">Digital</option>
+                  </select>
+                  <span *ngIf="validate('restriction.categoryId')"
+                    class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Category </b>
+                    is Required </span>
+                </div>
+                <div class="form-group row">
+                  <label for="minimumSpend" class="col-xl-3 col-md-4">Minimum Spend</label>
+                  <input id="minimumSpend" class="form-control col-md-7" formControlName="minimumSpend" type="number">
+                  <span *ngIf="validate('restriction.minimumSpend')"
+                    class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Minimum Spend </b>
+                    is Required </span>
+                </div>
+                <div class="form-group row">
+                  <label for="maximumSpend" class="col-xl-3 col-md-4">Maximum Spend</label>
+                  <input id="maximumSpend" class="form-control col-md-7" formControlName="maximumSpend" type="number">
+                  <span *ngIf="validate('restriction.maximumSpend')"
+                    class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Maximum Spend </b>
+                    is Required </span>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Usage">
+            <ng-template ngbTabContent>
+              <h4>Usage Limits</h4>
+              <div formGroupName="usage">
+                <div class="form-group row">
+                  <label for="perLimit" class="col-xl-3 col-md-4">Per Limit</label>
+                  <input class="form-control col-md-7" formControlName="perLimit" id="perLimit" type="number">
+                  <span *ngIf="validate('usage.perLimit')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0">
+                    <b>Per Limit </b>
+                    is Required </span>
+                </div>
+                <div class="form-group row">
+                  <label for="perCustomer" class="col-xl-3 col-md-4">Per Customer</label>
+                  <input class="form-control col-md-7" formControlName="perCustomer" id="perCustomer" type="number">
+                  <span *ngIf="validate('usage.perCustomer')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0">
+                    <b>Per Customer </b>
+                    is Required </span>
+                </div>
+              </div>
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+      </div>
+      <div class="card-footer">
+        <span [ngClass]="isError ? 'text-danger': 'text-success'">
+          <b> Message </b> {{ this.errMessage }}
+        </span>
+        <div class="pull-right mr-5">
+          <button type="button" class="btn btn-outline-primary"
+            (click)="modifyCoupon(editMode ? 'Update' : 'Add' )">
+            {{editMode ? 'Update' : 'Add' }}
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-primary mx-3" [routerLink]="['/coupons/list-coupons']">
+            Back
+          </button>
+          <!-- <button type="button" *ngIf="editMode" class="btn btn-outline-warning"
+          (click)="modifyProductCategory('Delete')">
+          Delete
+        </button> -->
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- Container-fluid Ends-->

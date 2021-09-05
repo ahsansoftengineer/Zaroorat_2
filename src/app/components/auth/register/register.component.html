@@ -1,0 +1,177 @@
+
+  <form [formGroup]="registerForm" class="form-horizontal" *ngIf="showRegister">
+    
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input formControlName="name" class="form-control" placeholder=" " id="name" type="text" />
+            <label for="name" style="font-family: Calibri;">Name</label>
+          </div>
+          <span *ngIf="validate('name')" class="text-danger">
+            <b>User Name </b> is Required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input formControlName="email" class="form-control" placeholder=" " id="email"
+              type="text" />
+            <label for="email" style="font-family: Calibri;">Email</label>
+          </div>
+          <span *ngIf="validate('email')" class="text-danger">
+            <b>Email </b> is Required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input formControlName="businessName" class="form-control" placeholder=" " id="businessName"
+              type="text" />
+            <label for="businessName" style="font-family: Calibri;">Business Name</label>
+          </div>
+          <span *ngIf="validate('businessName')" class="text-danger">
+            <b>Business Name </b> is Required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <ng-select [items]="productCategories" class="custom" bindLabel="name" bindValue="id"
+              placeholder=" " formControlName="businessCategory">
+            </ng-select>
+            <label for="businessCategory" style="font-family: Calibri;">Business Category</label>
+          </div>
+          <span *ngIf="validate('businessCategory')" class="text-danger">
+            <b>Business Category </b> is Required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input formControlName="personalContact" type="text" class="form-control" prefix="+92"
+              mask="(000) 000 00 00" (keypress)="validateNumber($event)" placeholder=" ">
+            <label for="personalContact" style="font-family: Calibri;">Personal Contact</label>
+          </div>
+          <span *ngIf="validate('personalContact')" class="text-danger">
+            <b>Personal Contact Number</b> is Required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input formControlName="businessContact" type="text" class="form-control " prefix="+92"
+              mask="(000) 000 00 00" (keypress)="validateNumber($event)" placeholder=" ">
+            <label for="businessContact" style="font-family: Calibri;">Business Contact</label>
+          </div>
+          <span *ngIf="validate('businessContact')" class="text-danger">
+            <b>Business Contact Number</b> is Required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input formControlName="businessAddress" type="text" class="form-control" placeholder=" ">
+            <label for="businessAddress" style="font-family: Calibri;">Business Address</label>
+          </div>
+          <span *ngIf="validate('businessAddress')" class="text-danger">
+            <b>Business Address</b> is Required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <ng-select [items]="cities" class="custom" bindLabel="name" placeholder=" " bindValue="name"
+              formControlName="city" id="city">
+            </ng-select>
+            <label for="city" style="font-family: Calibri;">City</label>
+          </div>
+          <span *ngIf="validate('city')" class="text-danger">
+            <b>City </b> is Required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input name="cnic" type="text" class="form-control" (keypress)="validateNumber($event)"
+              placeholder=" " formControlName="cnic">
+            <label for="cnic" style="font-family: Calibri;">CNIC</label>
+          </div>
+          <span *ngIf="validate('cnic')" class="text-danger">
+            <b>CNIC is required. </b>
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input type="text" class="form-control" (keypress)="validateNumber($event)" placeholder=" "
+              required formControlName="nTNNumber">
+            <label for="nTNNumber" style="font-family: Calibri;">NTN Number</label>
+          </div>
+          <span *ngIf="validate('nTNNumber')" class="text-danger">
+            <b>NTN Number is required. </b>
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input formControlName="password" type="password" class="form-control" placeholder=" ">
+            <label for="password" style="font-family: Calibri;">Password</label>
+          </div>
+          <span *ngIf="validate('password')" class="text-danger">
+            <b>Password </b> is Required
+          </span>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group has-float-label mb-0 mt-4">
+            <input #confirmPassword name="confirmPassword" id="confirmPassword" type="password"
+              class="form-control" placeholder=" ">
+            <label for="confirmPassword" style="font-family: Calibri;">Confirm Password</label>
+          </div>
+          <span *ngIf="registerForm.get('password').value != confirmPassword.value" class="text-danger">
+            <b>Confirm Password </b> not Matched
+          </span>
+        </div>
+        <div class="col-md-9">
+          <div class="form-terms">
+            <div class="custom-control custom-checkbox mr-sm-2 mt-2">
+              <input type="checkbox" #terms class="custom-control-input" id="terms">
+              <label class="custom-control-label" for="terms"><span>I agree all statements in 
+                <a href="javascript:void(0)" class="pull-right">Terms &amp; Conditions</a></span></label>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <button class="btn btn-outline-primary pull-right mt-2"
+            (click)="registerVendor(confirmPassword.value, terms.checked)"
+            type="button">Register</button>
+        </div>
+      </div>
+
+  </form>
+
+
+    <div class="form-horizontal auth-form" *ngIf="!showRegister" novalidate>
+      <div class="row">
+        <div class="col-md-8">
+          <div class="form-group">
+            <label><strong>Enter Email OTP</strong></label>
+            <input [(ngModel)]="emailOTP" type="text" class="form-control"
+              (keypress)="validateNumber($event)" placeholder="000-000">
+            <span *ngIf="emailOTP == ''" class="text-danger">
+              <b>Email OTP </b> is Required
+            </span>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="form-group">
+            <label><strong>Enter Phone OTP</strong></label>
+            <input [(ngModel)]="phoneOTP" type="text" class="form-control"
+              (keypress)="validateNumber($event)" placeholder="000-000">
+            <span *ngIf="phoneOTP == ''" class="text-danger">
+              <b>Phone OTP </b> is Required
+            </span>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <span [ngClass]="isError ? 'text-danger': 'text-success'">
+            <b> Message </b> {{this.errMessage}}
+          </span>
+          <button class="btn btn-primary pull-right mt-0" (click)="OTPVerify()"
+            type="button">Confirm</button>
+        </div>
+      </div>
+    </div>
+
+
+

@@ -1,0 +1,39 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header pb-2">
+      <h5>Vendor Details <span class="pull-right"><a routerLink="/vendors/create-vendors" >Add Vendor</a> </span> </h5>
+    </div>
+    <div class="card-body vendor-table pt-0">
+      <div id="batchDelete" class="custom-datatable vendor-list">
+        <div class="table-responsive ">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col" >Cnic</th>
+              <th scope="col" >City</th>
+              <th scope="col" >OTP Verified</th>
+              <th scope="col" >Status</th>
+              <th scope="col" (click)="onSort($event)">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{user.name}} </td>
+              <td>{{user.cnic}}</td>
+              <td>{{user.addresses[0].city}}</td>
+              <td>{{user.isActive}}</td>
+              <td>{{user.isApproved}}</td>
+              <td><ui-switch [checked]=user.isApproved (change)="onChange($event,user)" switchColor="#fcfcfc" >
+                <!-- <i class="fa fa-spinner fa-pulse" *ngIf="isLoading"></i> -->
+              </ui-switch></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->

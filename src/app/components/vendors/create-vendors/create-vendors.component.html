@@ -1,0 +1,437 @@
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card tab2-card">
+        <div class="card-header">
+          <h5> Add Vendor</h5>
+        </div>
+        <form [formGroup]="form" class="needs-validation user-add" novalidate="">
+          <div class="card-body">
+            <ngb-tabset class="tab-coupon">
+              <ngb-tab title="Personal Infomation">
+                <ng-template ngbTabContent>
+                  <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="form-group row">
+                      <label for="name" class="col-xl-3 col-md-4"><span>*</span>Full Name</label>
+                      <input formControlName="name" class="form-control col-xl-8 col-md-7" id="name" type="text">
+                      <span *ngIf="validate('name')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0">
+                        <b>Coupon Code </b> is Required </span>
+                    </div>
+                    <div class="form-group row">
+                      <label for="gender" class="col-xl-3 col-md-4">Gender</label>
+                      <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                        <label class="d-block" for="male">
+                          <input formControlName="gender" class="radio_animated" id="male" value="male" type="radio">
+                          Male
+                        </label>
+                        <label class="d-block" for="female">
+                          <input formControlName="gender" class="radio_animated" id="female" value="female"
+                            type="radio">
+                          Female
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="email" class="col-xl-3 col-md-4"><span>*</span>Email</label>
+                      <input formControlName="email" class="form-control col-xl-8 col-md-7" id="email" type="text">
+                      <span *ngIf="validate('email')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0">
+                        <b>Coupon Code </b> is Required </span>
+                    </div>
+                    <div class="form-group row">
+                      <label for="personalContact" class="col-xl-3 col-md-4"><span>*</span>Personal Contact
+                        Number</label>
+                      <input formControlName="personalContact" class="form-control col-xl-8 col-md-7"
+                        id="personalContact" type="text">
+                      <span *ngIf="validate('personalContact')"
+                        class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Coupon Code </b> is Required
+                      </span>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Business Information">
+                <ng-template ngbTabContent>
+                  <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="form-group row">
+                      <label for="userName" class="col-xl-3 col-md-4"><span>*</span>User Name</label>
+                      <input formControlName="userName" class="form-control col-xl-8 col-md-7" id="userName"
+                        type="text">
+                      <span *ngIf="validate('userName')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0">
+                        <b>Coupon Code </b> is Required </span>
+                    </div>
+                    <div class="form-group row">
+                      <label for="businessName" class="col-xl-3 col-md-4"><span>*</span>Business Name</label>
+                      <input formControlName="businessName" class="form-control col-xl-8 col-md-7" id="businessName"
+                        type="text">
+                      <span *ngIf="validate('businessName')" class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0">
+                        <b>Coupon Code </b> is Required </span>
+                    </div>
+                    <div class="form-group row">
+                      <label for="businessContact" class="col-xl-3 col-md-4"><span>*</span>Business Contact</label>
+                      <input formControlName="businessContact" class="form-control col-xl-8 col-md-7"
+                        id="businessContact" type="text">
+                      <span *ngIf="validate('businessContact')"
+                        class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Coupon Code </b> is Required
+                      </span>
+                    </div>
+                    <div class="form-group row">
+                      <label for="businessCategory" class="col-xl-3 col-md-4"><span>*</span>Business Category</label>
+                      <ng-select [items]="productCategories" class="col-xl-8 col-md-7 pl-0 pr-0 " bindLabel="category"
+                        bindValue="id" formControlName="businessCategory">
+                      </ng-select>
+                      <span *ngIf="validate('businessCategory')"
+                        class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Coupon Code </b> is Required
+                      </span>
+                      <!-- <span *ngIf="validate('businessCategory')" class="text-danger offset-xl-3 offset-md-4">
+                      <b>Product Category</b> is Required </span> -->
+                    </div>
+                    <div class="form-group row">
+                      <label for="businessAddress" class="col-xl-3 col-md-4"><span>*</span>Business Address</label>
+                      <input formControlName="businessAddress" class="form-control col-xl-8 col-md-7"
+                        id="businessAddress" type="text">
+                      <span *ngIf="validate('businessAddress')"
+                        class="text-danger offset-xl-3 offset-md-4 col-md-7 pl-0"> <b>Coupon Code </b> is Required
+                      </span>
+                    </div>
+                    <div class="form-group row">
+                      <label for="nTNNumber" class="col-xl-3 col-md-4">NTN Number</label>
+                      <input formControlName="nTNNumber" class="form-control col-xl-8 col-md-7" id="nTNNumber"
+                        type="text">
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Preferences">
+                <ng-template ngbTabContent>
+                  <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="form-group row">
+                      <label for="userImage" class="col-xl-3 col-md-4">User Image</label>
+                      <input formControlName="userImage" class="form-control col-xl-8 col-md-7" id="userImage"
+                        type="text">
+                    </div>
+                    <div class="form-group row">
+                      <label for="userBanner" class="col-xl-3 col-md-4">User Banner</label>
+                      <input formControlName="userBanner" class="form-control col-xl-8 col-md-7" id="userBanner"
+                        type="text">
+                    </div>
+                    <div class="form-group row">
+                      <label for="background" class="col-xl-3 col-md-4">Background</label>
+                      <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                        <label class="d-block" for="dark">
+                          <input formControlName="background" class="radio_animated" id="dark" value="dark"
+                            type="radio">
+                          Dark
+                        </label>
+                        <label class="d-block" for="light">
+                          <input formControlName="background" class="radio_animated" id="light" value="light"
+                            type="radio">
+                          Light
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="sidebar" class="col-xl-3 col-md-4">Side Bar</label>
+                      <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                        <label class="d-block" for="blue">
+                          <input formControlName="sidebar" class="radio_animated" id="blue" value="blue" type="radio">
+                          Blue
+                        </label>
+                        <label class="d-block" for="red">
+                          <input formControlName="sidebar" class="radio_animated" id="red" value="red" type="radio">
+                          Red
+                        </label>
+                        <label class="d-block" for="green">
+                          <input formControlName="sidebar" class="radio_animated" id="green" value="green" type="radio">
+                          Green
+                        </label>
+                        <label class="d-block" for="orange">
+                          <input formControlName="sidebar" class="radio_animated" id="orange" value="orange"
+                            type="radio">
+                          Orange
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Change Password">
+                <ng-template ngbTabContent>
+                  <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="form-group row">
+                      <label for="previousPassword"  class="col-xl-3 col-md-4">Previous Password</label>
+                      <input #previousPassword autocomplete="current-password" class="form-control col-xl-8 col-md-7" id="previousPassword"
+                        type="password">
+                    </div>
+                    <div class="form-group row">
+                      <label for="newPassword" class="col-xl-3 col-md-4">New Password</label>
+                      <input #newPassword autocomplete="new-password" class="form-control col-xl-8 col-md-7" id="newPassword" type="password">
+                    </div>
+                    <div class="form-group row">
+                      <label for="confirmPassword" class="col-xl-3 col-md-4">Confirm Password</label>
+                      <input #confirmPassword autocomplete="new-password" class="form-control col-xl-8 col-md-7" id="confirmPassword"
+                        type="password">
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-11">
+                        <div class="pull-right">
+                          <button type="button" class="btn btn-primary"
+                            (click)="changePassword(previousPassword.value, newPassword.value, confirmPassword.value)">
+                            Change Password</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Admin">
+                <ng-template ngbTabContent>
+                  <div class="tab-pane fade active show" id="account" role="tabpanel" aria-labelledby="account-tab">
+                    <div class="form-group row">
+                      <label for="userType" class="col-xl-3 col-md-4">User Type</label>
+                      <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                        <label class="d-block" for="admin">
+                          <input formControlName="userType" class="radio_animated" id="admin" value="admin"
+                            type="radio">
+                          Admin
+                        </label>
+                        <label class="d-block" for="vendor">
+                          <input formControlName="userType" class="radio_animated" id="vendor" value="vendor"
+                            type="radio">
+                          Vendor
+                        </label>
+                        <label class="d-block" for="customer">
+                          <input formControlName="userType" class="radio_animated" id="customer" value="customer"
+                            type="radio">
+                          Customer
+                        </label>
+                        <label class="d-block" for="none">
+                          <input formControlName="userType" class="radio_animated" id="none" value="none" type="radio">
+                          None
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="userStatus" class="col-xl-3 col-md-4">User Status</label>
+                      <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                        <label class="d-block" for="enabled">
+                          <input formControlName="userStatus" class="radio_animated" id="enabled" value="enabled"
+                            type="radio">
+                          Enabled
+                        </label>
+                        <label class="d-block" for="disabled">
+                          <input formControlName="userStatus" class="radio_animated" id="disabled" value="disabled"
+                            type="radio">
+                          Disabled
+                        </label>
+                        <label class="d-block" for="pending">
+                          <input formControlName="userStatus" class="radio_animated" id="pending" value="pending"
+                            type="radio">
+                          Pending
+                        </label>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="complain" class="col-xl-3 col-md-4">Complain</label>
+                      <input formControlName="complain" class="form-control col-xl-8 col-md-7" id="complain"
+                        type="text">
+                    </div>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Group">
+                <ng-template ngbTabContent>
+                  <form [formGroup]="permissionForm" class="needs-validation user-add" novalidate="">
+                    <div class="permission-block">
+                      <div class="attribute-blocks">
+                        <h5 class="f-w-600 mb-3">Product Group Related permission </h5>
+                        <div class="row">
+                          <div class="col-4" *ngFor="let cate of initializeExtendedCategory()" >
+                            <div class="custom-control custom-checkbox mr-sm-2">
+                              <input type="checkbox" [value]="cate.id" class="custom-control-input" [id]="cate.id">
+                              <label class="custom-control-label"  [attr.for]="cate.id">{{cate.category}}</label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </ng-template>
+              </ngb-tab>
+              <ngb-tab title="Permissions">
+                <ng-template ngbTabContent>
+                  <form [formGroup]="permissionForm" class="needs-validation user-add" novalidate="">
+                    <div class="permission-block">
+                      <div class="attribute-blocks">
+                        <h5 class="f-w-600 mb-3">Product Related permission </h5>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Add Product</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani1">
+                                <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani2">
+                                <input class="radio_animated" id="edo-ani2" type="radio" name="rdo-ani" checked="">
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Update Product</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani3">
+                                <input class="radio_animated" id="edo-ani3" type="radio" name="rdo-ani1">
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani4">
+                                <input class="radio_animated" id="edo-ani4" type="radio" name="rdo-ani1" checked="">
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Delete Product</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani5">
+                                <input class="radio_animated" id="edo-ani5" type="radio" name="rdo-ani2">
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani6">
+                                <input class="radio_animated" id="edo-ani6" type="radio" name="rdo-ani2" checked="">
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label class="mb-0 sm-label-radio">Apply discount</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated pb-0">
+                              <label class="d-block mb-0" for="edo-ani7">
+                                <input class="radio_animated" id="edo-ani7" type="radio" name="rdo-ani3">
+                                Allow
+                              </label>
+                              <label class="d-block mb-0" for="edo-ani8">
+                                <input class="radio_animated" id="edo-ani8" type="radio" name="rdo-ani3" checked="">
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="attribute-blocks">
+                        <h5 class="f-w-600 mb-3">Category Related permission </h5>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Add Category</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani9">
+                                <input class="radio_animated" id="edo-ani9" type="radio" name="rdo-ani4">
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani10">
+                                <input class="radio_animated" id="edo-ani10" type="radio" name="rdo-ani4" checked="">
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Update Category</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani11">
+                                <input class="radio_animated" id="edo-ani11" type="radio" name="rdo-ani5">
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani12">
+                                <input class="radio_animated" id="edo-ani12" type="radio" name="rdo-ani5" checked="">
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label>Delete Category</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline mb-0 custom-radio-ml d-flex radio-animated">
+                              <label class="d-block" for="edo-ani13">
+                                <input class="radio_animated" id="edo-ani13" type="radio" name="rdo-ani6">
+                                Allow
+                              </label>
+                              <label class="d-block" for="edo-ani14">
+                                <input class="radio_animated" id="edo-ani14" type="radio" name="rdo-ani6" checked="">
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-3 col-sm-4">
+                            <label class="mb-0 sm-label-radio">Apply discount</label>
+                          </div>
+                          <div class="col-xl-9 col-sm-8">
+                            <div class="form-group m-checkbox-inline custom-radio-ml d-flex radio-animated pb-0">
+                              <label class="d-block mb-0" for="edo-ani15">
+                                <input class="radio_animated" id="edo-ani15" type="radio" name="rdo-ani7">
+                                Allow
+                              </label>
+                              <label class="d-block mb-0" for="edo-ani16">
+                                <input class="radio_animated" id="edo-ani16" type="radio" name="rdo-ani7" checked="">
+                                Deny
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+          <div class="card-footer">
+            <span [ngClass]="isError ? 'text-danger': 'text-success'">
+              <b> Message </b> {{ this.errMessage }}
+            </span>
+            <div class="pull-right mr-5">
+              <button type="button" class="btn btn-outline-primary"
+                (click)="modify(editMode ? 'Update' : 'Add' )">
+                {{editMode ? 'Update' : 'Add' }}
+              </button>
+              &nbsp;
+              <button type="button" class="btn btn-primary mx-3" [routerLink]="['/vendors/list-vendors']">
+                Back
+              </button>
+              <!-- <button type="button" *ngIf="editMode" class="btn btn-outline-warning"
+                (click)="modifyProductCategory('Delete')">
+                Delete
+              </button> -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
